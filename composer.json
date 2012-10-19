@@ -1,0 +1,33 @@
+{
+    "name": "dflydev/psr0-resource-locator-composer",
+    "description": "Composer PSR-0 Resource Locator",
+    "keywords": ["composer", "psr0", "classpath", "namespace", "namespaceish"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dragonfly Development Inc.",
+            "email": "info@dflydev.com",
+            "homepage": "http://dflydev.com"
+        },
+        {
+            "name": "Beau Simensen",
+            "email": "beau@dflydev.com",
+            "homepage": "http://beausimensen.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "dflydev/composer-autoload": "1.0.*@dev",
+        "dflydev/psr0-resource-locator": "1.0.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Dflydev\\Psr0ResourceLocator\\Composer": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
