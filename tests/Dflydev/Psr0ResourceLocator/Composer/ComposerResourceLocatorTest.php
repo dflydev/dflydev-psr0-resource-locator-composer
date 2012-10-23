@@ -25,4 +25,37 @@ class ComposerResourceLocatorTest extends \PHPUnit_Framework_TestCase
         $directory = $resourceLocator->findOneDirectory('Dflydev\Composer\Autoload');
         $this->assertEquals($projectRoot.'/vendor/dflydev/composer-autoload/src/Dflydev/Composer/Autoload', $directory);
     }
+
+    /**
+     * Test swapping out implementation
+     */
+    public function testImplementation()
+    {
+        $classLoader = $this->getMock('Composer\Autoload\ClassLoader');
+
+        $classLoader
+            ->expects($this->once())
+            ->method('getPrefixes')
+            ->will($this->returnValue(array(
+                'Dflydev\Psr0ResourceLocator\Composer' => array(realpath(__DIR__.'/../../..')),
+            )));
+
+        $classLoaderLocator = $this->getMock('Dflydev\Composer\Autoload\ClassLoaderLocator');
+
+        $classLoaderLocator
+            ->expects($this->once())
+            ->method('locate')
+            ->will($this->returnValue($classLoader));
+
+        $resourceLocator = new ComposerResourceLocator($classLoaderLocator);
+
+        $projectRoot = dirname(dirname(dirname(dirname(__DIR__))));
+
+        $directories = $resourceLocator->findDirectories('Dflydev\Psr0ResourceLocator\Composer');
+        $this->assertCount(1, $directories);
+        $this->assertEquals($projectRoot.'/tests/Dflydev/Psr0ResourceLocator/Composer', $directories[0]);
+
+        $directory = $resourceLocator->findOneDirectory('Dflydev\Psr0ResourceLocator\Composer');
+        $this->assertEquals($projectRoot.'/tests/Dflydev/Psr0ResourceLocator/Composer', $directory);
+    }
 }
