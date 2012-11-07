@@ -20,6 +20,9 @@
         "dflydev/composer-autoload": "1.0.*@dev",
         "dflydev/psr0-resource-locator": "1.0.*@dev"
     },
+    "provide": {
+        "dflydev/psr0-resource-locator-implementation": "1.0.0-alpha"
+    },
     "autoload": {
         "psr-0": {
             "Dflydev\\Psr0ResourceLocator\\Composer": "src"
