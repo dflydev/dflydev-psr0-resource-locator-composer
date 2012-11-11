@@ -31,9 +31,9 @@ class ComposerResourceLocatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementation()
     {
-        $classLoader = $this->getMock('Composer\Autoload\ClassLoader');
+        $reader = $this->getMock('Dflydev\Composer\Autoload\ClassLoaderReaderInterface');
 
-        $classLoader
+        $reader
             ->expects($this->once())
             ->method('getPrefixes')
             ->will($this->returnValue(array(
@@ -44,8 +44,8 @@ class ComposerResourceLocatorTest extends \PHPUnit_Framework_TestCase
 
         $classLoaderLocator
             ->expects($this->once())
-            ->method('locate')
-            ->will($this->returnValue($classLoader));
+            ->method('getReader')
+            ->will($this->returnValue($reader));
 
         $resourceLocator = new ComposerResourceLocator($classLoaderLocator);
 
