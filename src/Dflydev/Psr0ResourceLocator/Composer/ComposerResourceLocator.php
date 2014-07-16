@@ -38,6 +38,11 @@ class ComposerResourceLocator extends AbstractPsr0ResourceLocator
      */
     protected function loadMap()
     {
-        return $this->classLoaderLocator->getReader()->getPrefixes();
+        $reader = $this->classLoaderLocator->getReader();
+
+        $prefixes = $reader->getPrefixes();
+        $prefixes[""] = $reader->getFallbackDirs();
+
+        return $prefixes;
     }
 }

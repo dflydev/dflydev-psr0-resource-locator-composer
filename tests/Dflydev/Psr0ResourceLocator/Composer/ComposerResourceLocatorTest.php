@@ -40,6 +40,11 @@ class ComposerResourceLocatorTest extends \PHPUnit_Framework_TestCase
                 'Dflydev\Psr0ResourceLocator\Composer' => array(realpath(__DIR__.'/../../..')),
             )));
 
+        $reader
+            ->expects($this->once())
+            ->method('getFallbackDirs')
+            ->will($this->returnValue(array()));
+
         $classLoaderLocator = $this->getMock('Dflydev\Composer\Autoload\ClassLoaderLocator');
 
         $classLoaderLocator
